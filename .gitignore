@@ -1,0 +1,25 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+*.pdb
+*.suo
+*.user
+*.log
+
+# NuGet packages
+**/packages/
+*.nupkg
+
+# Visual Studio and IDE-specific
+.vs/
+*.sln.docstates
+*.psess
+ipch/
+.idea/ # For JetBrains Rider
+*.sln.iml # For JetBrains Rider
+
+# Configuration (adjust as needed)
+**/appsettings*.Development.json
+**/launchSettings.json
