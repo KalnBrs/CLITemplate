@@ -5,7 +5,7 @@ namespace CLIProjectTool.Commands
 {
     public class ListCommand : ICommand
     {
-        static readonly string destinationFolderPath = Path.Combine(Environment.CurrentDirectory, "Templates");
+        static readonly string destinationFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates");
 
         public static Command Build()
         {
