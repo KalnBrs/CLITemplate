@@ -9,7 +9,17 @@
     <ToolCommandName>cli-project-tool</ToolCommandName>
     <PackageId>CLIProjectTool</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.3</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Include the Templates folder in the tool package so it's available under the tool's install path -->
+    <None Include="Templates/**">
+      <Pack>true</Pack>
+      <PackagePath>tools/net9.0/any/Templates/</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />

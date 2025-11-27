@@ -1,5 +1,4 @@
 ﻿using System.CommandLine;
-using System.ComponentModel.Design;
 using CLIProjectTool.Commands;
 
 var rootCommand = new RootCommand("Project Template Builder")
@@ -9,6 +8,6 @@ var rootCommand = new RootCommand("Project Template Builder")
   NewCommand.Build(),
   TemplateCommand.Build(),
   VersionCommand.Build()
-}; 
+};
 
 await rootCommand.InvokeAsync(args);
