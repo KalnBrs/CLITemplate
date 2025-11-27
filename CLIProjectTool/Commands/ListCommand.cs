@@ -5,6 +5,8 @@ namespace CLIProjectTool.Commands
 {
     public class ListCommand : ICommand
     {
+        static readonly string destinationFolderPath = Path.Combine(Environment.CurrentDirectory, "Templates");
+
         public static Command Build()
         {
             var patternOption = new Option<string?>(
@@ -23,7 +25,31 @@ namespace CLIProjectTool.Commands
 
         private static void HandleListCommand(string? pattern)
         {
-            Console.WriteLine($"\nHello, listing all the scripts/templates (filter: '{pattern ?? "none"}')");
+            try
+            {
+                string[] filePaths = Directory.GetFiles(destinationFolderPath);
+                if (filePaths.Length == 0)
+                {
+                    Console.WriteLine("The Templates folder contains no templates");
+                }
+                string?[] files = filePaths.Select(Path.GetFileName).ToArray();
+
+                Console.WriteLine($"\nFiles in Templates: ");
+                foreach (string? file in files)
+                {
+                    if (file == null) continue;
+                    if (file == ".gitignore") continue;
+                    if (pattern == null || file.Contains(pattern, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        Console.WriteLine("-> " + file);
+                    }
+                }
+                
+            }
+            catch (Exception err)
+            {
+                Console.Error.WriteLine(err.Message);
+            }
         }
     }
 }
