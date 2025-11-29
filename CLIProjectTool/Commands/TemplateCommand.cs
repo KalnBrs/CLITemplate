@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Text.Json;
 using CLIProjectTool.Interfaces;
 using CLIProjectTool.Models;
+using CLIProjectTool.Services;
 
 namespace CLIProjectTool.Commands
 {
@@ -64,6 +65,16 @@ namespace CLIProjectTool.Commands
                 File.WriteAllText(metaDataPath, jsonString);
 
                 // Copy over single file or folder for template
+                if (Directory.Exists(path))
+                {
+                    string desFolderPath = Path.Combine(createDir, name);
+                    TemplateService.CopyFolder(path, desFolderPath, true);
+                }
+                else if (File.Exists(path))
+                {
+                    string desFilePath = Path.Combine(createDir, name + Path.GetExtension(path));
+                    TemplateService.CopyFile(path, createDir, desFilePath);
+                }
             }   
             catch (Exception err)
             {
