@@ -1,5 +1,8 @@
 using System.CommandLine;
+using System.ComponentModel;
+using System.Text.Json;
 using CLIProjectTool.Interfaces;
+using CLIProjectTool.Models;
 
 namespace CLIProjectTool.Commands
 {
@@ -34,31 +37,39 @@ namespace CLIProjectTool.Commands
 
         private static void HandleAdd(string name, string path)
         {
-            string desFilePath = Path.Combine(destinationFolderPath, name + Path.GetExtension(path));
-            Console.WriteLine(destinationFolderPath);
-            Console.WriteLine($"This adds a tempate with this name {desFilePath}, and this path {path}");
-
+            string createDir = Path.Combine(destinationFolderPath, name);
+            string metaDataPath = Path.Combine(createDir, "template.json");
             try
             {
-                if (!Directory.Exists(destinationFolderPath))
+                // Create Directory
+                if (!Directory.Exists(createDir))
                 {
-                    Directory.CreateDirectory(destinationFolderPath);
-                    Console.WriteLine($"Created directory: {destinationFolderPath}");
+                    Directory.CreateDirectory(createDir);
+                    Console.WriteLine($"Created directory: {createDir}");
                 }
 
-                if (!File.Exists(desFilePath))
+                // Create .json Meta data 
+                if (!File.Exists(metaDataPath))
                 {
-                    using (File.Create(desFilePath))
+                    using (File.Create(metaDataPath))
                     {
                     }
                 }
+                
+                TemplateMetadata newTemp = new TemplateMetadata
+                {
+                    Name = name
+                }; 
+                string jsonString = JsonSerializer.Serialize(newTemp, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(metaDataPath, jsonString);
 
-                File.Copy(path, desFilePath, true);
-            }
+                // Copy over single file or folder for template
+            }   
             catch (Exception err)
             {
                 Console.Error.WriteLine(err.Message);
             }
+            
         }
 
         private static void HandleRemove(string name)
