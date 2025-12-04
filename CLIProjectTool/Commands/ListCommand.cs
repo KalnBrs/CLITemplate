@@ -46,9 +46,13 @@ namespace CLIProjectTool.Commands
                 }
                 
             }
+            catch (DirectoryNotFoundException)
+            {
+                Console.Error.WriteLine("There are no templates defined");
+            }
             catch (Exception err)
             {
-                Console.Error.WriteLine(err.Message);
+                Console.Error.WriteLine(err);
             }
         }
     }
