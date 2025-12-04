@@ -9,7 +9,7 @@
     <ToolCommandName>cli-project-tool</ToolCommandName>
     <PackageId>CLIProjectTool</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.3</Version>
+    <Version>1.0.7</Version>
   </PropertyGroup>
 
   <ItemGroup>
